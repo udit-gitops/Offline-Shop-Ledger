@@ -1,7 +1,5 @@
 # Offline-First Shop Ledger Web-App
 
-B.Tech CSE VII Semester minor project — Udit Navariya and Vinod Kumar Meena.
-
 A small web app for one shop and one user. The shopkeeper can manage products, record sales,
 keep customer dues and see basic reports. It keeps working without internet: entries are saved
 in the browser first and sent to the server when the connection returns.
