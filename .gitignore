@@ -1,0 +1,9 @@
+# downloaded packages (recreated by "npm install")
+node_modules/
+
+# the SQLite database file (each computer has its own data)
+backend/data/
+
+# secrets and editor files
+.env
+.vscode/

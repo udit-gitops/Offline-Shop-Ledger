@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Customers · Shop Ledger</title>
+  <meta name="theme-color" content="#163d30">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="customers">
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <main class="main">
+      <header class="page-head">
+        <div>
+          <h1>Customer ledger</h1>
+          <p id="summary"></p>
+        </div>
+        <button type="button" class="btn btn-primary" id="addBtn">Add customer</button>
+      </header>
+
+      <div class="grid-2 grid-ledger">
+        <section class="card">
+          <div class="card-head">
+            <h2>Customers</h2>
+            <input type="search" class="search" id="search" placeholder="Search" aria-label="Search customers">
+          </div>
+          <div class="cust-list" id="listBox"></div>
+        </section>
+
+        <section class="card" id="ledgerBox"></section>
+      </div>
+    </main>
+  </div>
+
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <script src="js/db.js"></script>
+  <script src="js/sync.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/customers.js"></script>
+</body>
+</html>

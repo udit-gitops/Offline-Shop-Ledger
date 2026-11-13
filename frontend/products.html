@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Products · Shop Ledger</title>
+  <meta name="theme-color" content="#163d30">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="products">
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <main class="main">
+      <header class="page-head">
+        <div>
+          <h1>Products</h1>
+          <p id="summary"></p>
+        </div>
+        <button type="button" class="btn btn-primary" id="addBtn">Add product</button>
+      </header>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>Inventory</h2>
+          <input type="search" class="search" id="search" placeholder="Search products" aria-label="Search products">
+        </div>
+        <div class="table-wrap" id="tableBox"></div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="productDialog">
+    <form id="productForm" novalidate>
+      <div class="dialog-head" id="dialogTitle">Add product</div>
+      <div class="dialog-body">
+        <div class="form-error" id="formError" hidden></div>
+        <div class="field">
+          <label for="pName">Product name</label>
+          <input id="pName" maxlength="80" autocomplete="off" placeholder="e.g. Sugar (1 kg)">
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="pPrice">Price (₹)</label>
+            <input id="pPrice" type="number" min="0" step="0.01" inputmode="decimal">
+          </div>
+          <div class="field">
+            <label for="pQty">Quantity in stock</label>
+            <input id="pQty" type="number" min="0" step="1" inputmode="numeric">
+          </div>
+        </div>
+      </div>
+      <div class="dialog-foot">
+        <button type="button" class="btn" id="cancelBtn">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save product</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <script src="js/db.js"></script>
+  <script src="js/sync.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/products.js"></script>
+</body>
+</html>

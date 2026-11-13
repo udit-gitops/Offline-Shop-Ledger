@@ -1,0 +1,13 @@
+{
+  "name": "Offline-First Shop Ledger",
+  "short_name": "Shop Ledger",
+  "description": "Sales, stock and customer dues for a small shop. Works offline.",
+  "start_url": "index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5f3ec",
+  "theme_color": "#163d30",
+  "icons": [
+    { "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

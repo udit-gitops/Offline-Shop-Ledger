@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard · Shop Ledger</title>
+  <meta name="theme-color" content="#163d30">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="dashboard">
+  <div class="app">
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <main class="main">
+      <header class="page-head">
+        <div>
+          <h1>Dashboard</h1>
+          <p id="todayLabel"></p>
+        </div>
+        <a class="btn btn-primary" href="sales.html">New sale</a>
+      </header>
+
+      <section class="stats" aria-label="Shop summary">
+        <div class="card stat">
+          <div class="stat-label">Today's sales</div>
+          <div class="stat-value" id="statSales">–</div>
+          <div class="stat-note" id="statSalesNote"></div>
+        </div>
+        <div class="card stat">
+          <div class="stat-label">Total products</div>
+          <div class="stat-value" id="statProducts">–</div>
+          <div class="stat-note" id="statProductsNote"></div>
+        </div>
+        <div class="card stat" id="statDuesCard">
+          <div class="stat-label">Pending dues</div>
+          <div class="stat-value" id="statDues">–</div>
+          <div class="stat-note" id="statDuesNote"></div>
+        </div>
+        <div class="card stat" id="statLowCard">
+          <div class="stat-label">Low stock items</div>
+          <div class="stat-value" id="statLow">–</div>
+          <div class="stat-note" id="statLowNote"></div>
+        </div>
+      </section>
+
+      <!-- Shown only when the server refused some changes. -->
+      <section class="card card-alert" id="rejectedCard" hidden>
+        <div class="card-head"><h2>Changes the server rejected</h2></div>
+        <div class="table-wrap" id="rejectedBox"></div>
+      </section>
+
+      <div class="grid-2">
+        <section class="card">
+          <div class="card-head"><h2>Recent transactions</h2></div>
+          <div class="table-wrap" id="recentBox"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-head">
+            <h2>Low stock</h2>
+            <a class="small" href="products.html">Manage products</a>
+          </div>
+          <div class="table-wrap" id="lowBox"></div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <script src="js/db.js"></script>
+  <script src="js/sync.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

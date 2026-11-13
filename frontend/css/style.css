@@ -1,0 +1,263 @@
+/* ============================================================
+   Shop Ledger — one stylesheet for all pages.
+   Only system fonts are used so nothing has to be downloaded
+   (the app must look the same when it is opened offline).
+   ============================================================ */
+
+:root {
+  --bg: #f5f3ec;
+  --surface: #ffffff;
+  --ink: #1c2a24;
+  --muted: #65726b;
+  --line: #e4e0d4;
+  --brand: #1f6f54;
+  --brand-dark: #163d30;
+  --brand-soft: #e6f2ec;
+  --warn: #a65f00;
+  --warn-soft: #fdf1dc;
+  --danger: #b3261e;
+  --danger-soft: #fbe9e7;
+  --radius: 10px;
+  --shadow: 0 1px 2px rgba(28, 42, 36, .06), 0 4px 14px rgba(28, 42, 36, .05);
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+h1, h2, h3, p { margin: 0; }
+a { color: var(--brand); }
+.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+
+/* ---------- Layout ---------- */
+
+.app { display: grid; grid-template-columns: 232px minmax(0, 1fr); min-height: 100vh; }
+
+.sidebar {
+  position: sticky; top: 0; height: 100vh;
+  display: flex; flex-direction: column; gap: 20px;
+  padding: 20px 14px;
+  background: var(--brand-dark); color: #dbe8e1;
+}
+
+.brand { display: flex; align-items: center; gap: 10px; padding: 0 8px; color: #fff; text-decoration: none; }
+.brand-mark {
+  display: grid; place-items: center; width: 34px; height: 34px;
+  border-radius: 9px; background: #f2c14e; color: var(--brand-dark); font-weight: 700; font-size: 18px;
+}
+.brand-name { font-weight: 650; font-size: 17px; letter-spacing: .01em; }
+
+.nav { display: flex; flex-direction: column; gap: 4px; }
+.nav-link {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 12px; border-radius: 8px;
+  color: inherit; text-decoration: none; font-weight: 500;
+}
+.nav-link svg { width: 20px; height: 20px; flex: none; }
+.nav-link:hover { background: rgba(255, 255, 255, .08); }
+.nav-link.active { background: rgba(255, 255, 255, .15); color: #fff; }
+
+.sync {
+  margin-top: auto; padding: 12px;
+  border: 1px solid rgba(255, 255, 255, .14); border-radius: var(--radius);
+  font-size: 13px;
+}
+.sync-net { display: flex; align-items: center; gap: 8px; font-weight: 600; color: #fff; }
+.sync-msg { margin: 4px 0 10px; color: #b9cdc3; }
+.sync-btn {
+  width: 100%; padding: 7px 10px; border-radius: 7px; cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, .25); background: transparent; color: #fff; font: inherit;
+}
+.sync-btn:hover:not(:disabled) { background: rgba(255, 255, 255, .1); }
+.sync-btn:disabled { opacity: .45; cursor: default; }
+
+.dot { width: 9px; height: 9px; border-radius: 50%; background: #8aa; }
+.dot-on { background: #5fd39a; }
+.dot-off { background: #f2a03d; }
+
+.main { padding: 28px 32px 48px; max-width: 1180px; width: 100%; }
+
+.page-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px; margin-bottom: 22px; }
+.page-head h1 { font-size: 24px; font-weight: 680; letter-spacing: -.01em; }
+.page-head p { color: var(--muted); }
+
+/* ---------- Cards ---------- */
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+.card-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+.card-head h2 { font-size: 16px; font-weight: 650; }
+.card-body { padding: 18px; }
+.card-alert { margin-bottom: 20px; border-color: #e9b9b4; }
+.card-alert .card-head h2 { color: var(--danger); }
+
+.grid-2 { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+.grid-ledger { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); } /* customers page: narrow list, wide ledger */
+.grid-even { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: start; }
+/* minmax(0, 1fr): the column may shrink below its content, so a wide table
+   scrolls inside its card instead of stretching the whole page. */
+.stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; }
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin-bottom: 20px; }
+.stat { padding: 16px 18px; }
+.stat-label { color: var(--muted); font-size: 13px; font-weight: 500; }
+.stat-value { margin-top: 4px; font-size: 26px; font-weight: 700; letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+.stat-note { margin-top: 2px; color: var(--muted); font-size: 13px; }
+.stat.is-warn .stat-value { color: var(--warn); }
+
+/* ---------- Tables ---------- */
+
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 11px 18px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: middle; }
+th { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); background: #faf9f5; white-space: nowrap; }
+tbody tr:last-child td { border-bottom: 0; }
+tfoot td { font-weight: 700; border-top: 2px solid var(--line); border-bottom: 0; }
+.row-actions { display: flex; gap: 6px; justify-content: flex-end; }
+
+.empty { padding: 36px 18px; text-align: center; color: var(--muted); }
+.empty strong { display: block; margin-bottom: 4px; color: var(--ink); font-size: 16px; }
+.empty .btn { margin-top: 14px; }
+
+/* ---------- Badges ---------- */
+
+.badge { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.badge-ok { background: var(--brand-soft); color: var(--brand); }
+.badge-warn { background: var(--warn-soft); color: var(--warn); }
+.badge-danger { background: var(--danger-soft); color: var(--danger); }
+.badge-plain { background: #efede5; color: var(--muted); }
+
+/* ---------- Buttons & forms ---------- */
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 9px 16px; border-radius: 8px; border: 1px solid var(--line);
+  background: var(--surface); color: var(--ink); font: inherit; font-weight: 600; cursor: pointer; text-decoration: none;
+}
+.btn:hover:not(:disabled) { border-color: #cfc9b8; background: #faf9f5; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.btn-primary { background: var(--brand); border-color: var(--brand); color: #fff; }
+.btn-primary:hover:not(:disabled) { background: #195c45; border-color: #195c45; }
+.btn-danger { color: var(--danger); }
+.btn-sm { padding: 5px 10px; font-size: 13px; }
+.btn-block { width: 100%; }
+
+label { display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600; }
+input, select {
+  width: 100%; padding: 9px 11px; border: 1px solid #d3cebf; border-radius: 8px;
+  background: #fff; color: var(--ink); font: inherit;
+}
+input:focus-visible, select:focus-visible, .btn:focus-visible, .sync-btn:focus-visible, .nav-link:focus-visible, .pick:focus-visible, .cust:focus-visible {
+  outline: 2px solid var(--brand); outline-offset: 2px;
+}
+.field { margin-bottom: 14px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.search { max-width: 260px; }
+.form-error { margin-bottom: 12px; padding: 9px 12px; border-radius: 8px; background: var(--danger-soft); color: var(--danger); font-size: 14px; }
+.inline-form { display: flex; gap: 8px; }
+.inline-form input { flex: 1; min-width: 0; }
+
+/* ---------- Dialog ---------- */
+
+dialog { width: min(440px, calc(100vw - 32px)); padding: 0; border: 0; border-radius: 14px; box-shadow: 0 20px 60px rgba(0, 0, 0, .25); color: var(--ink); }
+dialog::backdrop { background: rgba(22, 40, 32, .45); }
+.dialog-head { padding: 18px 20px 0; font-size: 18px; font-weight: 680; }
+.dialog-body { padding: 16px 20px 4px; }
+.dialog-foot { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 20px 18px; }
+
+/* ---------- Toasts ---------- */
+
+.toasts { position: fixed; right: 20px; bottom: 20px; z-index: 50; display: grid; gap: 8px; }
+.toast { padding: 11px 16px; border-radius: 9px; background: var(--brand-dark); color: #fff; box-shadow: var(--shadow); max-width: 340px; }
+.toast-error { background: var(--danger); }
+
+/* ---------- Sales page ---------- */
+
+.sales-grid {
+  display: grid; gap: 20px; align-items: start;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  grid-template-areas: "products bill" "today bill";
+  grid-template-rows: auto 1fr; /* a tall bill must not push "today's sales" down */
+}
+.area-products { grid-area: products; }
+.area-bill { grid-area: bill; }
+.area-today { grid-area: today; }
+
+.pick-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; max-height: 60vh; overflow-y: auto; padding: 2px; }
+.pick {
+  display: block; width: 100%; padding: 11px 12px; text-align: left; cursor: pointer;
+  border: 1px solid var(--line); border-radius: 9px; background: #fff; font: inherit; color: inherit;
+}
+.pick:hover:not(:disabled) { border-color: var(--brand); background: var(--brand-soft); }
+.pick:disabled { opacity: .5; cursor: not-allowed; }
+.pick-name { display: block; font-weight: 600; overflow-wrap: anywhere; }
+.pick-meta { display: flex; justify-content: space-between; gap: 8px; margin-top: 2px; font-size: 13px; color: var(--muted); }
+
+.bill td, .bill th { padding: 9px 12px; }
+.bill .qty { width: 72px; padding: 6px 8px; text-align: right; }
+.bill-total { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 18px; border-top: 1px solid var(--line); }
+.bill-total strong { font-size: 24px; font-variant-numeric: tabular-nums; }
+.due-line { display: flex; justify-content: space-between; margin: -4px 0 14px; font-size: 14px; }
+.due-line b { font-variant-numeric: tabular-nums; }
+
+/* ---------- Customers page ---------- */
+
+.cust-list { max-height: 68vh; overflow-y: auto; }
+.cust {
+  display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 12px 18px; border: 0; border-bottom: 1px solid var(--line); background: none;
+  font: inherit; color: inherit; text-align: left; cursor: pointer;
+}
+.cust:hover { background: #faf9f5; }
+.cust.active { background: var(--brand-soft); box-shadow: inset 3px 0 0 var(--brand); }
+.cust-name { font-weight: 600; overflow-wrap: anywhere; }
+
+.ledger-sum { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--line); }
+.ledger-sum div { padding: 14px 18px; }
+.ledger-sum div + div { border-left: 1px solid var(--line); }
+.ledger-sum b { display: block; font-size: 20px; font-variant-numeric: tabular-nums; }
+.is-due { color: var(--warn); }
+
+/* ---------- Reports page ---------- */
+
+/* Chart.js sizes the chart to this box, so the box needs a fixed height. */
+.chart-box { position: relative; height: 210px; padding: 16px 18px 8px; border-bottom: 1px solid var(--line); }
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 900px) {
+  .app { display: block; }
+  .sidebar {
+    position: sticky; top: 0; z-index: 20; height: auto;
+    flex-direction: row; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 10px 16px;
+  }
+  .brand { padding: 0; }
+  .sync { margin: 0; padding: 0; border: 0; display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .sync-msg { margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .sync-btn { width: auto; padding: 5px 9px; white-space: nowrap; }
+  .nav {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+    flex-direction: row; gap: 0; padding: 4px 4px calc(4px + env(safe-area-inset-bottom));
+    background: var(--brand-dark);
+  }
+  .nav-link { flex: 1; flex-direction: column; gap: 2px; padding: 7px 2px; font-size: 11px; }
+  .main { padding: 18px 16px 96px; }
+  .grid-2, .grid-even { grid-template-columns: minmax(0, 1fr); }
+  .sales-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "products" "bill" "today"; }
+  .toasts { left: 16px; right: 16px; bottom: 76px; }
+  th, td { padding: 10px 12px; }
+  .search { max-width: none; }
+}
+
+@media (max-width: 520px) {
+  .sync-msg { display: none; }
+  .field-row { grid-template-columns: 1fr; }
+}
