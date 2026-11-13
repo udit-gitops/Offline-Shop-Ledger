@@ -6,12 +6,33 @@ A small web app for one shop and one user. The shopkeeper can manage products, r
 keep customer dues and see basic reports. It keeps working without internet: entries are saved
 in the browser first and sent to the server when the connection returns.
 
+## Features
+
+- **Products:** add, edit and delete products with name, price and quantity; low-stock warning.
+- **Sales:** pick products, enter quantities, bill total is calculated, stock is reduced automatically.
+- **Customer ledger:** sell on credit, record payments, see each customer's pending amount and history.
+- **Reports:** daily sales, pending dues, and a chart of the last 7 days.
+- **Offline:** the app opens and records entries without internet.
+- **Sync status:** every entry shows **Pending** or **Synced**; pending entries are sent when the server is reachable.
+
+## Tech stack
+
+| Part | Technology |
+|---|---|
+| Pages and styling | HTML, CSS, JavaScript (no framework) |
+| Data in the browser | IndexedDB |
+| Opening the app offline | Service Worker + Cache API |
+| Server | Node.js + Express |
+| Data on the server | SQLite (`better-sqlite3` package) |
+| Chart | Chart.js |
+
 ## How to run
 
-You need [Node.js](https://nodejs.org) 22 or newer (`node -v` shows your version).
+You need [Node.js](https://nodejs.org) 22 or newer (`node -v` shows your version) and Git.
 
 ```powershell
-cd backend
+git clone https://github.com/udit-gitops/Offline-Shop-Ledger.git
+cd Offline-Shop-Ledger\backend
 npm install      # only the first time, downloads Express and better-sqlite3
 npm start
 ```
@@ -165,6 +186,7 @@ Manual offline test (the sequence from the synopsis):
 - No login or user accounts.
 - Quantities are whole numbers (no 0.5 kg).
 - Customers cannot be edited or deleted, and a saved sale cannot be changed.
+- A change the server rejects stays listed on the dashboard; there is no button to discard it.
 - Not included by design: online payments, GST filing, multiple branches, advanced accounting.
 - The server can be reached only from the computer it runs on.
 - On a very slow connection the app waits for the network before using its cached files.
