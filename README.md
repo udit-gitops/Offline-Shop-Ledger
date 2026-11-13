@@ -47,6 +47,9 @@ itself whenever a backend file is saved.
 - The server only accepts connections from the same computer (it listens on `127.0.0.1`), because
   the app has no login.
 - The SQLite database file is created automatically at `backend/data/ledger.db`.
+- For demo data, run `npm run seed` in the `backend` folder: it fills an empty database with a sample
+  kirana shop (10 products, 4 customers, a week of sales). A browser that has no data yet shows it
+  after a reload.
 - To start again with an empty shop: stop the server, delete `backend/data/ledger.db`, and in the
   browser clear the site data (DevTools → Application → Storage → "Clear site data"). Do both,
   otherwise the browser and the server no longer agree.
